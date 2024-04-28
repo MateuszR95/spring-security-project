@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularz rejestracji</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+
+<form th:action="@{/register}" th:object="${user}" method="post">
+    <div class="imgcontainer">
+        <img src="../static/img/img_avatar2.png" th:src="@{/img/img_avatar2.png}" alt="Avatar" class="avatar">
+        <h1>Zarejestruj się!</h1>
+    </div>
+
+    <div class="container">
+
+        <p th:if="${error}" style="color: red" th:text="|Nieudana rejestracja. ${error}|">Nieudana rejestracja!</p>
+
+        <label for="username"><b>Nazwa użytkownika</b></label>
+        <input th:field="*{userName}" type="text" placeholder="Nazwa Użytkownika" name="username" id="username">
+
+        <label for="password"><b>Hasło</b></label>
+        <input th:field="*{password}" type="password" placeholder="Wprowadź hasło" name="password" id="password">
+
+        <label for="email"><b>Email</b></label>
+        <input th:field="*{email}" type="email" placeholder="Podaj adres email" name="email" id="email">
+
+        <label for="firstname"><b>Podaj imię</b></label>
+        <input th:field="*{firstName}" type="text" placeholder="Podaj imię" name="firstname" id="firstname">
+
+        <label for="lastname"><b>Podaj nazwisko</b></label>
+        <input th:field="*{lastName}" type="text" placeholder="Podaj nazwisko" name="lastname" id="lastname">
+
+
+        <button type="submit">Zarejestruj</button>
+
+    </div>
+
+</form>
+
+</body>
+</html>

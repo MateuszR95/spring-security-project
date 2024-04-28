@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administratora</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+<div class="logo-container">
+    <img src="../static/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="alternative text"
+         class="logo-container"/>
+</div>
+
+<div class="headers-container">
+    <h1>Panel administratora</h1>
+</div>
+
+<div class="links-container">
+    <a href="#" th:href="@{/user-profile}">Strona profilu</a>
+</div>
+
+<div th:if="${!users.isEmpty()}" style="text-align: center">
+    <table style="margin: auto; border: 1px solid black;" class="text-center">
+        <tr>
+            <th style="border: 1px solid black;">Użytkownik</th>
+            <th style="border: 1px solid black;">Imię</th>
+            <th style="border: 1px solid black;">Nazwisko</th>
+            <th style="border: 1px solid black;">Email</th>
+            <th style="border: 1px solid black;">Rola</th>
+            <th style="border: 1px solid black;">Akcja</th>
+
+        </tr>
+        <tr th:each="user : ${users}" style="font-size: 16px">
+            <td style="border: 1px solid black;" th:text="${user.userName}"></td>
+            <td style="border: 1px solid black;" th:text="|${user.firstName}|"></td>
+            <td style="border: 1px solid black;" th:text="|${user.lastName}|"></td>
+            <td style="border: 1px solid black;" th:text="|${user.email}|"></td>
+            <td style="border: 1px solid black;" th:text="|${user.roles}|">
+
+            <td style="border: 1px solid black;">
+                <a th:if="${user.roles.contains('ADMIN') && !user.userName.equals(#authentication.name)}"
+                   th:href="@{/dismiss/{username}(username = ${user.userName})}">Odbierz admina</a>
+                <a th:unless="${user.roles.contains('ADMIN')}"
+                   th:href="@{/promote/{username}(username = ${user.userName})}">Mianuj administratorem</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
