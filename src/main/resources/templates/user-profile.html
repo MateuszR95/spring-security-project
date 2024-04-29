@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pomyślnie zalogowano</title>
+</head>
+<body>
+<div class="logo-container">
+    <img src="../static/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="alternative text"
+         class="logo-container" />
+</div>
+
+<div class="welcome-message-container">
+    <h1 th:text="|Witaj ${username} ponownie!|"> Witaj użytkowniku </h1>
+    <a th:href="@{/logout}">Wyloguj się</a>
+    <a th:href="@{/user-profile/{username}/edit(username = ${username})}">Edytuj profil</a>
+    <a sec:authorize="hasAuthority('ROLE_ADMIN')" th:href="@{/admin}">Panel admina</a>
+
+</div>
+</body>
+</html>

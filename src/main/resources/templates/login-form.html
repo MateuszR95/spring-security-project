@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularz logowania</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+<form th:action="@{/login}" method="post">
+    <div class="imgcontainer">
+        <img src="../static/img/img_avatar2.png" th:src="@{/img/img_avatar2.png}" alt="Avatar" class="avatar">
+        <h1>Zaloguj się!</h1>
+    </div>
+
+    <div class="container">
+        <p th:if="${error}" style="color: red">Nieudane logowanie! Błędny login lub hasło.</p>
+        <p th:if="${message}" style="color: red" th:text="|Pomyślnie utworzono konto|">Udana rejestracja!</p>
+
+        <label for="username"><b>Nazwa użytkownika</b></label>
+        <input type="text" placeholder="Nazwa Użytkownika" name="username" id="username">
+
+        <label for="password"><b>Hasło</b></label>
+        <input type="password" placeholder="Wprowadź hasło" name="password" id="password">
+
+        <button type="submit">Zaloguj</button>
+
+    </div>
+
+</form>
+
+</body>
+</html>

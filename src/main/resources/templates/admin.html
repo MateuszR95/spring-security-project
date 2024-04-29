@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Administratora</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+<div class="logo-container">
+    <img src="../static/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="alternative text"
+         class="logo-container"/>
+</div>
+
+<div class="headers-container">
+    <h1>Panel administratora</h1>
+</div>
+
+<div class="links-container">
+    <a href="#" th:href="@{/user-profile}">Strona profilu</a>
+</div>
+
+<div class="table-container">
+    <div th:if="${!users.isEmpty()}" class="users-table">
+        <table>
+            <tr>
+                <th>Użytkownik</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
+                <th>Rola</th>
+                <th>Akcja</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userName}"></td>
+                <td th:text="|${user.firstName}|"></td>
+                <td th:text="|${user.lastName}|"></td>
+                <td th:text="|${user.email}|"></td>
+                <td th:text="|${user.roles}|"></td>
+                <td>
+                    <a th:if="${user.roles.contains('ADMIN') && !user.userName.equals(#authentication.name)}"
+                       th:href="@{/dismiss/{username}(username = ${user.userName})}">Odbierz admina</a>
+                    <a th:unless="${user.roles.contains('ADMIN')}"
+                       th:href="@{/promote/{username}(username = ${user.userName})}">Mianuj administratorem</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Odbierz uprawnienia admina</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+<div class="logo-container">
+    <img src="../static/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="alternative text"
+         class="logo-container"/>
+</div>
+
+<form th:action="@{/dismiss/{username}(username=${user.userName})}" method="post" style="text-align: center">
+    <label for="noAdminRole">Potwierdź, że chcesz odebrać użytkownikowi uprawnienia administratora:</label>
+    <br>
+    <input type="submit" value="Potwierdzam" name="noAdminRole" id="noAdminRole">
+    <br><br>
+    <span>Lub wróć do panelu administratora:</span>
+    <a href="#" th:href="@{/admin}">Panel administratora</a>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Nadaj uprawnienia admina</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+<div class="logo-container">
+    <img src="../static/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="alternative text"
+         class="logo-container" />
+</div>
+
+<form th:action="@{/promote/{username}(username=${user.userName})}" method="post" style="text-align: center">
+    <label for="adminRole">Potwierdź, że chcesz nadać użytkownikowi uprawnienia administratora:</label>
+    <br>
+    <input type="submit" value="Potwierdzam" name="adminRole" id="adminRole">
+    <br><br>
+    <span>Lub wróć do panelu administratora:</span>
+    <a href="#" th:href="@{/admin}">Panel administratora</a>
+</form>
+
+</body>
+</html>

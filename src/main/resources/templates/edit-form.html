@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formularz edycji</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+
+<form th:action="@{/user-profile/{username}/edit(username = ${user.getUserName()})}" th:object="${user}" method="post">
+    <div class="imgcontainer">
+        <img src="../static/img/img_avatar2.png" th:src="@{/img/img_avatar2.png}" alt="Avatar" class="avatar">
+        <h1 th:text="|Edytuj konto ${username}|">Edytuj konto!</h1>
+    </div>
+
+    <div class="links-container">
+        <a href="#" th:href="@{/user-profile}">Strona profilu</a>
+    </div>
+
+    <div class="container">
+
+        <p th:if="${error}" style="color: red" th:text="|Nieudana edycja konta ${error}|">Nieudana edycja!</p>
+        <p th:if="${message}" style="color: red" th:text="|Pomyślnie edytowano konto|">Udana edycja!</p>
+
+        <label for="username"><b>Nazwa użytkownika</b></label>
+        <input th:field="*{userName}" type="text" name="username" id="username" disabled>
+
+        <label for="password"><b>Hasło</b></label>
+        <input th:field="*{password}" type="password" placeholder="Wprowadź nowe hasło" name="password" id="password">
+
+        <label for="firstname"><b>Zmień imię</b></label>
+        <input th:field="*{firstName}" type="text" name="firstname" id="firstname">
+
+        <label for="lastname"><b>Zmień nazwisko</b></label>
+        <input th:field="*{lastName}" type="text" name="lastname" id="lastname">
+
+
+        <button type="submit">Zapisz</button>
+
+    </div>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona główna</title>
+    <link rel="stylesheet" href="../static/styles/main.css" th:href="@{/styles/main.css}">
+</head>
+<body>
+
+<div class="logo-container">
+    <img src="../static/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="alternative text"
+         class="logo-container" />
+</div>
+
+<div class="headers-container">
+    <h1>Witaj na forum Logo</h1>
+</div>
+
+<div class="links-container">
+    <a href="#" th:href="@{/login}">Zaloguj się</a>
+    &nbsp;
+    &nbsp;
+    <a href="#" th:href="@{/register}">Zarejestruj się</a>
+
+</div>
+
+
+</body>
+</html>
