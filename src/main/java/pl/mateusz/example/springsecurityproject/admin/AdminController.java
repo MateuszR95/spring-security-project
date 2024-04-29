@@ -3,7 +3,7 @@ package pl.mateusz.example.springsecurityproject.admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import pl.mateusz.example.springsecurityproject.user.UserDisplayDto;
+import pl.mateusz.example.springsecurityproject.user.dto.UserDisplayDto;
 import pl.mateusz.example.springsecurityproject.user.UserService;
 
 import java.util.List;

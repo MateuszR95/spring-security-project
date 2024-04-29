@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import pl.mateusz.example.springsecurityproject.user.UserRegisterDto;
+import pl.mateusz.example.springsecurityproject.user.dto.UserRegisterDto;
 import pl.mateusz.example.springsecurityproject.user.UserService;
 
 import java.util.Optional;

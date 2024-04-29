@@ -11,17 +11,14 @@
     <img src="../static/img/logo.jpg" th:src="@{/img/logo.jpg}" alt="alternative text"
          class="logo-container"/>
 </div>
+
 <form th:action="@{/dismiss/{username}(username=${user.userName})}" method="post" style="text-align: center">
-    <label for="adminRole">Potwierdź, że chcesz odebrać uprawnienia administratora:</label><br>
-
-    <input type="checkbox" id="adminRole" name="adminRole" value="true">
-    <label for="adminRole">Tak</label><br>
-
-    <input type="hidden" name="noAdminRole" value="false">
-    <input type="checkbox" id="noAdminRole" name="noAdminRole" value="true">
-    <label for="noAdminRole">Nie</label><br>
-
-    <input type="submit" value="Potwierdź">
+    <label for="noAdminRole">Potwierdź, że chcesz odebrać użytkownikowi uprawnienia administratora:</label>
+    <br>
+    <input type="submit" value="Potwierdzam" name="noAdminRole" id="noAdminRole">
+    <br><br>
+    <span>Lub wróć do panelu administratora:</span>
+    <a href="#" th:href="@{/admin}">Panel administratora</a>
 </form>
 
 </body>

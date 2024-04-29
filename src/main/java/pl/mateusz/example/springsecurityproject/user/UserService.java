@@ -3,10 +3,15 @@ package pl.mateusz.example.springsecurityproject.user;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.mateusz.example.springsecurityproject.exceptions.*;
+import pl.mateusz.example.springsecurityproject.exceptions.UserNotFoundException;
+import pl.mateusz.example.springsecurityproject.exceptions.UserRoleNotFoundException;
+import pl.mateusz.example.springsecurityproject.exceptions.UserValidationException;
 import pl.mateusz.example.springsecurityproject.role.Role;
 import pl.mateusz.example.springsecurityproject.role.UserRole;
 import pl.mateusz.example.springsecurityproject.role.UserRoleRepository;
+import pl.mateusz.example.springsecurityproject.user.dto.UserDisplayDto;
+import pl.mateusz.example.springsecurityproject.user.dto.UserEditDto;
+import pl.mateusz.example.springsecurityproject.user.dto.UserRegisterDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,11 +58,11 @@ public class UserService {
         User user = new User();
         Optional<User> userByUserName = userRepository.getUserByUserName(dto.getUserName());
         if (userByUserName.isPresent()) {
-            throw new UserWithProvidedUsernameExist("Użytkownik o tej nazwie już istnieje!");
+            throw new UserValidationException("Użytkownik o tej nazwie już istnieje!");
         }
         Optional<User> userByEmail = userRepository.getUserByEmail(dto.getEmail());
         if (userByEmail.isPresent()) {
-            throw new UserWithProvidedEmailExist("Użytkownik z podanym adresem mailowym już istnieje!");
+            throw new UserValidationException("Użytkownik z podanym adresem mailowym już istnieje!");
         }
         user.setUserName(dto.getUserName());
         user.setEmail(dto.getEmail());
@@ -65,14 +70,9 @@ public class UserService {
         user.setLastName(dto.getLastName());
         String encryptedPassword = passwordEncoder.encode(dto.getPassword());
         user.setPassword(encryptedPassword);
-        Optional<UserRole> userRoleOptional = userRoleRepository.getUserRoleByRole(Role.USER);
-        userRoleOptional.ifPresentOrElse(
-                role -> user.getRoles().add(role),
-                () -> {
-                    throw new UserRoleNotFoundException("Nie znaleziono takiej roli użytkownika");
-                }
-        );
-
+        UserRole role = userRoleRepository.getUserRoleByRole(Role.USER)
+                .orElseThrow(() -> new UserRoleNotFoundException("Nie znaleziono takiej roli użytkownika"));
+        user.getRoles().add(role);
         userRepository.save(user);
 
     }
@@ -81,10 +81,10 @@ public class UserService {
     public void editAccount(String userName, UserEditDto userEditDto) {
         User user = userRepository.getUserByUserName(userName).orElseThrow(() -> new UserNotFoundException("Nie znaleziono takiego użytkownika"));
         if (userEditDto.getFirstName().isEmpty()) {
-            throw new UserWithEmptyFirstNameException("Imię nie może być puste");
+            throw new UserValidationException("Imię nie może być puste");
         }
         if (userEditDto.getLastName().isEmpty()) {
-            throw new UserWithEmptyLastNameException("Nazwisko nie może być puste");
+            throw new UserValidationException("Nazwisko nie może być puste");
         }
         user.setFirstName(userEditDto.getFirstName());
         user.setLastName(userEditDto.getLastName());
@@ -94,32 +94,21 @@ public class UserService {
     }
 
     @Transactional
-    public void promoteUser(String userName, UserDisplayDto userDisplayDto) {
+    public void promoteUser(String userName) {
         User user = userRepository.getUserByUserName(userName)
                 .orElseThrow(() -> new UserNotFoundException("Nie znaleziono takiego użytkownika"));
-        Optional<UserRole> userRoleOptional = userRoleRepository.getUserRoleByRole(Role.ADMIN);
-        userRoleOptional.ifPresentOrElse(
-                role -> user.getRoles().add(role),
-                () -> {
-                    throw new UserRoleNotFoundException("Nie znaleziono takiej roli użytkownika");
-                }
-        );
-        userRepository.save(user);
+        UserRole role = userRoleRepository.getUserRoleByRole(Role.ADMIN)
+                .orElseThrow(() -> new UserRoleNotFoundException("Nie znaleziono takiej roli użytkownika"));
+        user.getRoles().add(role);
     }
 
     @Transactional
-    public void dismissUser(String userName, UserDisplayDto userDisplayDto) {
+    public void dismissUser(String userName) {
         User user = userRepository.getUserByUserName(userName)
                 .orElseThrow(() -> new UserNotFoundException("Nie znaleziono takiego użytkownika"));
-        Optional<UserRole> userRoleOptional = userRoleRepository.getUserRoleByRole(Role.ADMIN);
-        userRoleOptional.ifPresentOrElse(
-                role -> user.getRoles().remove(role),
-                () -> {
-                    throw new UserRoleNotFoundException("Nie znaleziono takiej roli użytkownika");
-                }
-        );
-        userRepository.save(user);
+        UserRole role = userRoleRepository.getUserRoleByRole(Role.ADMIN)
+                .orElseThrow(() -> new UserRoleNotFoundException("Nie znaleziono takiej roli użytkownika"));
+        user.getRoles().remove(role);
     }
-
 
 }

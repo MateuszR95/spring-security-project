@@ -1,11 +1,14 @@
 package pl.mateusz.example.springsecurityproject.user;
 
 import pl.mateusz.example.springsecurityproject.role.UserRole;
+import pl.mateusz.example.springsecurityproject.user.dto.UserDisplayDto;
+import pl.mateusz.example.springsecurityproject.user.dto.UserEditDto;
+import pl.mateusz.example.springsecurityproject.user.dto.UserRegisterDto;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
-class UserDtoMapper {
+public class UserDtoMapper {
 
     public static UserRegisterDto mapToRegisterDto(User user) {
         UserRegisterDto userRegisterDto = new UserRegisterDto();

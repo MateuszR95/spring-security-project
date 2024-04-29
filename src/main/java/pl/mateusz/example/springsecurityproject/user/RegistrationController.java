@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.mateusz.example.springsecurityproject.exceptions.UserWithProvidedEmailExist;
-import pl.mateusz.example.springsecurityproject.exceptions.UserWithProvidedUsernameExist;
+import pl.mateusz.example.springsecurityproject.exceptions.UserValidationException;
+import pl.mateusz.example.springsecurityproject.user.dto.UserRegisterDto;
 
 @Controller
 class RegistrationController {
@@ -30,7 +30,7 @@ class RegistrationController {
     String register(UserRegisterDto userRegisterDto, Model model) {
         try {
             userService.register(userRegisterDto);
-        } catch (UserWithProvidedEmailExist | UserWithProvidedUsernameExist e) {
+        } catch (UserValidationException e) {
             logger.info(e.getMessage());
             model.addAttribute("user", userRegisterDto);
             model.addAttribute("error", e.getMessage());

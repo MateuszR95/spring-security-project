@@ -24,7 +24,6 @@ class LoginController {
 
     @GetMapping("/user-profile")
     String displayUserProfile(Authentication authentication, Model model) {
-//        authentication.getAuthorities().stream().map(auth -> auth.getAuthority()).anyMatch(Role.ADMIN.name())
         model.addAttribute("username", authentication.getName());
         return "user-profile";
     }

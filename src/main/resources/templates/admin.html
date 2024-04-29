@@ -21,32 +21,32 @@
     <a href="#" th:href="@{/user-profile}">Strona profilu</a>
 </div>
 
-<div th:if="${!users.isEmpty()}" style="text-align: center">
-    <table style="margin: auto; border: 1px solid black;" class="text-center">
-        <tr>
-            <th style="border: 1px solid black;">Użytkownik</th>
-            <th style="border: 1px solid black;">Imię</th>
-            <th style="border: 1px solid black;">Nazwisko</th>
-            <th style="border: 1px solid black;">Email</th>
-            <th style="border: 1px solid black;">Rola</th>
-            <th style="border: 1px solid black;">Akcja</th>
-
-        </tr>
-        <tr th:each="user : ${users}" style="font-size: 16px">
-            <td style="border: 1px solid black;" th:text="${user.userName}"></td>
-            <td style="border: 1px solid black;" th:text="|${user.firstName}|"></td>
-            <td style="border: 1px solid black;" th:text="|${user.lastName}|"></td>
-            <td style="border: 1px solid black;" th:text="|${user.email}|"></td>
-            <td style="border: 1px solid black;" th:text="|${user.roles}|">
-
-            <td style="border: 1px solid black;">
-                <a th:if="${user.roles.contains('ADMIN') && !user.userName.equals(#authentication.name)}"
-                   th:href="@{/dismiss/{username}(username = ${user.userName})}">Odbierz admina</a>
-                <a th:unless="${user.roles.contains('ADMIN')}"
-                   th:href="@{/promote/{username}(username = ${user.userName})}">Mianuj administratorem</a>
-            </td>
-        </tr>
-    </table>
+<div class="table-container">
+    <div th:if="${!users.isEmpty()}" class="users-table">
+        <table>
+            <tr>
+                <th>Użytkownik</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Email</th>
+                <th>Rola</th>
+                <th>Akcja</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userName}"></td>
+                <td th:text="|${user.firstName}|"></td>
+                <td th:text="|${user.lastName}|"></td>
+                <td th:text="|${user.email}|"></td>
+                <td th:text="|${user.roles}|"></td>
+                <td>
+                    <a th:if="${user.roles.contains('ADMIN') && !user.userName.equals(#authentication.name)}"
+                       th:href="@{/dismiss/{username}(username = ${user.userName})}">Odbierz admina</a>
+                    <a th:unless="${user.roles.contains('ADMIN')}"
+                       th:href="@{/promote/{username}(username = ${user.userName})}">Mianuj administratorem</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 
 </body>

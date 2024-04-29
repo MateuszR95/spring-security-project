@@ -1,6 +1,6 @@
-package pl.mateusz.example.springsecurityproject.user;
+package pl.mateusz.example.springsecurityproject.user.dto;
 
-class UserEditDto {
+public class UserEditDto {
 
     private String userName;
     private String firstName;

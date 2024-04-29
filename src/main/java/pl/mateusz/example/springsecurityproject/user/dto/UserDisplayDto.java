@@ -1,17 +1,14 @@
-package pl.mateusz.example.springsecurityproject.user;
+package pl.mateusz.example.springsecurityproject.user.dto;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserRegisterDto {
+public class UserDisplayDto {
 
     private String userName;
-    private String email;
     private String firstName;
     private String lastName;
-
-    private String password;
-
+    private String email;
     private Set<String> roles = new HashSet<>();
 
     public String getUserName() {
@@ -20,14 +17,6 @@ public class UserRegisterDto {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFirstName() {
@@ -46,12 +35,12 @@ public class UserRegisterDto {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<String> getRoles() {
